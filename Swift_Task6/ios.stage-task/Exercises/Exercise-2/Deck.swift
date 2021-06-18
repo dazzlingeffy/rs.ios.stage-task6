@@ -28,10 +28,28 @@ extension Deck {
 
     init(with type: DeckType) {
         self.type = type
+        cards = createDeck(suits: Suit.allCases, values: Value.allCases)
     }
 
     public func createDeck(suits:[Suit], values:[Value]) -> [Card] {
-        []
+        var suit = Suit.clubs
+        var value = Value.six
+        var cards = [Card]()
+        var i = 0
+        while i < 9 {
+            cards.append(Card(suit: suit, value: value))
+            if i == 8 && suit == Suit.diamonds {
+                return cards
+            } else if i == 8 {
+                suit.next()
+                value.next()
+                i = 0
+            } else {
+                value.next()
+                i += 1
+            }
+        }
+        return cards
     }
 
     public func shuffle() {

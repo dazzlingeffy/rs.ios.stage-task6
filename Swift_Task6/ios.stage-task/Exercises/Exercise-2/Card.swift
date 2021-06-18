@@ -13,9 +13,13 @@ enum Suit: Int, CaseIterable, Codable {
     case spades
     case hearts
     case diamonds
+    
+    mutating func next(){
+        self = Suit(rawValue: rawValue + 1) ?? Suit(rawValue: 0)!
+    }
 }
 
-enum Value: Int, Codable {
+enum Value: Int, Codable, CaseIterable {
     case six
     case seven
     case eight
@@ -25,6 +29,10 @@ enum Value: Int, Codable {
     case queen
     case king
     case ace
+    
+    mutating func next(){
+        self = Value(rawValue: rawValue + 1) ?? Value(rawValue: 0)!
+    }
 }
 
 struct Card: CardBaseCompatible {
@@ -37,6 +45,9 @@ struct Card: CardBaseCompatible {
     }
 
     static func == (lhs: Self, rhs: Self) -> Bool {
+        if lhs.suit == rhs.suit && lhs.value == rhs.value && lhs.isTrump == rhs.isTrump {
+            return true
+        }
         return false
     }
 }
