@@ -56,8 +56,11 @@ extension Deck {
         cards.shuffle()
     }
 
-    public func defineTrump() {
-
+    public mutating func defineTrump() {
+        trump = cards.last?.suit
+        cards = cards.map { card in
+            Card(suit: card.suit, value: card.value, isTrump: card.suit == trump)
+        }
     }
 
     public func initialCardsDealForPlayers(players: [Player]) {
