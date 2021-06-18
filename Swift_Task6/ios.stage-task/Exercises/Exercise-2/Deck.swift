@@ -52,8 +52,8 @@ extension Deck {
         return cards
     }
 
-    public func shuffle() {
-
+    public mutating func shuffle() {
+        cards.shuffle()
     }
 
     public func defineTrump() {
