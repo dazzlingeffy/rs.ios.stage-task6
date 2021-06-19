@@ -15,7 +15,14 @@ final class Player: PlayerBaseCompatible {
     var hand: [Card]?
 
     func checkIfCanTossWhenAttacking(card: Card) -> Bool {
-        false
+        var res = false
+        let cardsToToss = self.hand?.compactMap { c in
+            c.value == card.value ? c : nil
+        }
+        if cardsToToss!.count > 0 {
+            res = true
+        }
+        return res
     }
 
     func checkIfCanTossWhenTossing(table: [Card: Card]) -> Bool {
