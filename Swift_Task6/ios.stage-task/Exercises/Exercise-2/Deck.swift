@@ -63,8 +63,12 @@ extension Deck {
         }
     }
 
-    public func initialCardsDealForPlayers(players: [Player]) {
-
+    public mutating func initialCardsDealForPlayers(players: [Player]) {
+        for player in players {
+            let range = (cards.count - 6)..<cards.count
+            player.hand = Array(cards[range])
+            cards.removeSubrange(range)
+        }
     }
 
     public func setTrumpCards(for suit:Suit) {
