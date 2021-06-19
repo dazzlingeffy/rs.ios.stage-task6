@@ -18,6 +18,19 @@ struct Game: GameCompatible {
 extension Game {
 
     func defineFirstAttackingPlayer(players: [Player]) -> Player? {
-        nil
+        var min: Card?
+        var res: Player?
+        
+        for player in players {
+            let trumps = player.hand?.compactMap { card in
+                return card.isTrump ? card : nil
+            }
+            let tmp = (trumps?.min { $0.value.rawValue < $1.value.rawValue })!
+            if (min == nil) || (min?.value.rawValue)! > (tmp.value.rawValue) {
+                min = tmp
+                res = player
+            }
+        }
+        return res
     }
 }
