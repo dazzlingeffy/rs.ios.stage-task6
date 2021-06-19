@@ -26,6 +26,13 @@ final class Player: PlayerBaseCompatible {
     }
 
     func checkIfCanTossWhenTossing(table: [Card: Card]) -> Bool {
-        false
+        let handValues = hand?.map { $0.value }
+        let matches = table.compactMap {
+            (handValues?.contains($0.value))! || (handValues?.contains($1.value))! ? $0 : nil
+        }
+        if matches.count > 0 {
+            return true
+        }
+        return false
     }
 }
